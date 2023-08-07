@@ -8,50 +8,20 @@ using std::vector;
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        int m = matrix.size(); //Numero de linhas 
-        int n = matrix[0].size() - 1; //Numero de colunas
+        int i = 0;
+        int j = matrix[0].size() - 1;
 
-        if(m <= 0){
-            return false;
-        }
-
-        //Binary Search Algorithm:
-        int left = 0;
-        int right = m;
-        
-        do{
-            if(!((left+right)%2)){
-                for(int j=0;j<(n-1);j++){
-                    if(matrix[right][j] == target){
-                        return true;
-                    }
-                }
-                right = right - 1;
-            }
-
-            int MidValue = (left + right)/2;
-
-            
-            if(target == matrix[MidValue][0]){
+        while(i<matrix.size() && j>=0){
+            if(matrix[i][j] == target){
                 return true;
             }
-            else if(target < matrix[MidValue][0]){
-                right = MidValue - 1;
+            else if(matrix[i][j] > target){
+                j--;
             }
-            else if(target > matrix[MidValue][0]){
-                
-                for(int j=0;j<n;j++){ //Adicionar um Binary Search tambem
-                    if(matrix[MidValue][j] == target){
-                        return true;
-                    }
-                }
-                
-                left = MidValue + 1; 
+            else{
+                i++;
             }
-
-
-        }while(right >= left);
-
+        }
         return false;
     }
 };
@@ -63,17 +33,17 @@ int main(){
     vector<vector<int>> matrix3{{1,3}};
 
 
-    if(Solution1.searchMatrix(matrix, 3)){
+    if(Solution1.searchMatrix(matrix, 60)){
         std::cout << "True" << std::endl;
         }else{
             std::cout << "False" << std::endl;
         }
-    if(Solution1.searchMatrix(matrix2, 2)){
+    if(Solution1.searchMatrix(matrix2, 1)){
         std::cout << "True" << std::endl;
         }else{
             std::cout << "False" << std::endl;
         }
-    if(Solution1.searchMatrix(matrix3, 3)){
+    if(Solution1.searchMatrix(matrix3, 0)){
         std::cout << "True" << std::endl;
         }else{
             std::cout << "False" << std::endl;
